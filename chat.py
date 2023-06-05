@@ -16,7 +16,7 @@ def chatbot(messages, model="gpt-4", temperature=0):
             text = response['choices'][0]['message']['content']
             
             ###    trim message object
-            if response['usage']['total_tokens'] >= 7000:
+            if response['usage']['total_tokens'] >= 7800:
                 a = messages.pop(1)
             
             return text
@@ -45,15 +45,9 @@ if __name__ == '__main__':
     while True:
         # get user input
         text = input('\n\nUSER: ')
-        user_messages.append(text)
-        all_messages.append('USER: %s' % text)
         conversation.append({'role': 'user', 'content': text})
-
 
         # generate a response
         response = chatbot(conversation)
-        save_file('chat_logs/chat_%s_chatbot.txt' % time(), response)
         conversation.append({'role': 'assistant', 'content': response})
-        all_messages.append('CHATBOT: %s' % response)
         print('\n\nCHATBOT: %s' % response)
-
