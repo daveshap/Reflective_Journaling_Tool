@@ -1,5 +1,6 @@
 import openai
 from time import time, sleep
+import textwrap
 
 
 def open_file(filepath):
@@ -44,10 +45,12 @@ if __name__ == '__main__':
     
     while True:
         # get user input
-        text = input('\n\nUSER: ')
+        text = input('\n\n\n\nUSER: ')
         conversation.append({'role': 'user', 'content': text})
 
         # generate a response
         response = chatbot(conversation)
         conversation.append({'role': 'assistant', 'content': response})
-        print('\n\nCHATBOT: %s' % response)
+        print('\n\n\n\nCHATBOT:')
+        formatted_text = textwrap.fill(response, width=80, initial_indent='    ', subsequent_indent='    ')
+        print(formatted_text)
