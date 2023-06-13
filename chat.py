@@ -39,22 +39,15 @@ def open_yaml(filepath):
 ###     API functions
 
 
-#def chatbot(conversation, model="gpt-4", temperature=0):
 def chatbot(conversation, model="gpt-4-0613", temperature=0):
-#def chatbot(conversation, model="gpt-4-32k-0613", temperature=0):
     max_retry = 7
     retry = 0
     while True:
         try:
-<<<<<<< HEAD
-            response = openai.ChatCompletion.create(model=model, messages=conversation, temperature=temperature)
-            text = response['choices'][0]['message']['content']
-            return text, response['usage']['total_tokens']
-=======
             spinner = Halo(text='AI', spinner='dots')
             spinner.start()
             
-            response = openai.ChatCompletion.create(model=model, messages=messages, temperature=temperature)
+            response = openai.ChatCompletion.create(model=model, messages=conversation, temperature=temperature)
             text = response['choices'][0]['message']['content']
 
             spinner.stop()
@@ -63,8 +56,7 @@ def chatbot(conversation, model="gpt-4-0613", temperature=0):
             if response['usage']['total_tokens'] >= 7800:
                 a = messages.pop(1)
             
-            return text
->>>>>>> 99a638a51c1a86066903a27682bce99d90b4a1bc
+            return text, response['usage']['total_tokens']
         except Exception as oops:
             print(f'\n\nError communicating with OpenAI: "{oops}"')
             if 'maximum context length' in str(oops):
@@ -120,22 +112,10 @@ def generate_chat_response(ALL_MESSAGES, conversation):
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     # instantiate chatbot, variables
     openai.api_key = open_file('key_openai.txt').strip()
     system_message = open_file('system.txt')
     ALL_MESSAGES = list()
-=======
-    # instantiate chatbot
-    openai.api_key = open_file('key_openai.txt').strip()
-    conversation = list()
-    conversation.append({'role': 'system', 'content': open_file('system_reflective_journaling.txt')})
-    
-    while True:
-        # get user input
-        text = input('\n\n\n\nUSER: ')
-        conversation.append({'role': 'user', 'content': text})
->>>>>>> 99a638a51c1a86066903a27682bce99d90b4a1bc
 
     while True:
         text = get_user_input()
