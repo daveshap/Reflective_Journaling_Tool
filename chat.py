@@ -105,10 +105,9 @@ def generate_chat_response(ALL_MESSAGES, conversation):
     if tokens > 7800:
         z = ALL_MESSAGES.pop(0)
     ALL_MESSAGES.append({'role': 'assistant', 'content': response})
-    print('\n\n\n\nCHATBOT:\n')
     formatted_lines = [textwrap.fill(line, width=120, initial_indent='    ', subsequent_indent='    ') for line in response.split('\n')]
     formatted_text = '\n'.join(formatted_lines)
-    print(formatted_text)
+    print('\n\n\nJOURNAL:\n\n%s' % formatted_text)
 
 
 if __name__ == '__main__':
