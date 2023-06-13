@@ -3,6 +3,12 @@ from time import time, sleep
 from halo import Halo
 import textwrap
 
+# Use readline for better input() editing, if available
+try:
+  import readline
+except ImportError:
+  pass
+
 
 def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8', errors='ignore') as infile:
