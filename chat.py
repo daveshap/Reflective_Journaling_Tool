@@ -39,7 +39,7 @@ def chatbot(messages, model="gpt-4", temperature=0):
 
 if __name__ == '__main__':
     # instantiate chatbot
-    openai.api_key = open_file('key_openai.txt')
+    openai.api_key = open_file('key_openai.txt').strip()
     conversation = list()
     conversation.append({'role': 'system', 'content': open_file('system_reflective_journaling.txt')})
     
