@@ -1,5 +1,6 @@
 import openai
 from time import time, sleep
+from halo import Halo
 import textwrap
 
 
@@ -13,8 +14,13 @@ def chatbot(messages, model="gpt-4", temperature=0):
     retry = 0
     while True:
         try:
+            spinner = Halo(text='AI', spinner='dots')
+            spinner.start()
+            
             response = openai.ChatCompletion.create(model=model, messages=messages, temperature=temperature)
             text = response['choices'][0]['message']['content']
+
+            spinner.stop()
             
             ###    trim message object
             if response['usage']['total_tokens'] >= 7800:
