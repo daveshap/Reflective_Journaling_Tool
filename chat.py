@@ -4,6 +4,11 @@ from halo import Halo
 import textwrap
 import sys
 import yaml
+# Use readline for better input() editing, if available
+try:
+  import readline
+except ImportError:
+  pass
 
 
 ###     file operations
@@ -13,11 +18,6 @@ def save_file(filepath, content):
     with open(filepath, 'w', encoding='utf-8') as outfile:
         outfile.write(content)
 
-# Use readline for better input() editing, if available
-try:
-  import readline
-except ImportError:
-  pass
 
 
 def open_file(filepath):
@@ -51,10 +51,6 @@ def chatbot(conversation, model="gpt-4-0613", temperature=0):
             text = response['choices'][0]['message']['content']
 
             spinner.stop()
-            
-            ###    trim message object
-            if response['usage']['total_tokens'] >= 7800:
-                a = messages.pop(1)
             
             return text, response['usage']['total_tokens']
         except Exception as oops:
